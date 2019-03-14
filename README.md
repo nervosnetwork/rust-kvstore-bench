@@ -1,7 +1,9 @@
 # Rocksdb v.s Lmdb
 
 这个文档包含了 Rocksdb 和 LMDB 简单的性能测试对比，使用的 rust wrapper 分别是这两个项目：
+
 https://github.com/rust-rocksdb/rust-rocksdb
+
 https://github.com/AltSysrq/lmdb-zero
 
 ## 项目对比
@@ -13,8 +15,11 @@ https://github.com/AltSysrq/lmdb-zero
 
 ### ACID
 Atomicity: Rocksdb 默认的写入操作是非原子性，需要用 WriteBatch api 来实现。LMDB 的写入是原子性的，所有的写入操作必须通过 WriteTransaction api 来进行。
+
 Consistency: Rocksdb 提供了 Snapshot api 来提供一致性的 readonly view。 LMDB 在 ReadTransaction 打开的过程中，保证提供一致性。
+
 Isolation: Rocksdb 通过 log sequence number 来实现事务隔离，和常见的关系型数据库类似，也有 pessimistic 和 optimistic 事务 (不过好像 rust wrapper 还没有这个功能)。LMDB 则是用一个写锁序列化了所有的写操作，事务隔离非常简单，但这样就无法支持多线程写入。
+
 Durability: Rocksdb 默认是异步 flush 到 IO，配置成同步写入会严重降低写入性能。而 LMDB 默认是同步写入。在性能测试中为了一致性，LMDB 也配置成了异步写入。
 
 ### 量级
