@@ -1,6 +1,7 @@
 use clap::{App, Arg, ArgMatches, SubCommand};
 use rust_kvstore_bench::lmdb_zero::Store as Lmdb;
 use rust_kvstore_bench::rocksdb::Store as Rocksdb;
+use rust_kvstore_bench::sled::Store as Sled;
 use rust_kvstore_bench::workload::{
     generate_report, generate_workload, run_workload, sample_workload, TaskGenerator, Workload,
     WorkloadResult,
@@ -73,6 +74,7 @@ fn execute_run(matches: &ArgMatches) {
     match db_type {
         "rocksdb" => run::<Rocksdb>(&path),
         "lmdb" => run::<Lmdb>(&path),
+        "sled" => run::<Sled>(&path),
         _ => {}
     }
 }

@@ -1,5 +1,6 @@
 pub mod lmdb_zero;
 pub mod rocksdb;
+pub mod sled;
 pub mod workload;
 
 #[derive(Debug)]

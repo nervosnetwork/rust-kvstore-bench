@@ -5,8 +5,9 @@ authors = ["quake wang <quake.wang@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-rocksdb = { git = "https://github.com/rust-rocksdb/rust-rocksdb" }
+rocksdb = "0.13"
 lmdb-zero = "0.4"
+sled = "0.31"
 clap = "2.32"
 rand = "0.6"
 serde = { version = "1.0", features = ["derive"] }

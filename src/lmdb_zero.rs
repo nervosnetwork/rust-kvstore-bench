@@ -17,9 +17,11 @@ impl<'a> KeyValueStore<'a> for Store {
         let mut env_builder = EnvBuilder::new().unwrap();
         env_builder.set_maxdbs(1).unwrap();
         // max 1TB
-        env_builder.set_mapsize(1_099_511_627_776).unwrap_or_else(|e| {
-            panic!("Unable to allocate LMDB space: {:?}", e);
-        });
+        env_builder
+            .set_mapsize(1_099_511_627_776)
+            .unwrap_or_else(|e| {
+                panic!("Unable to allocate LMDB space: {:?}", e);
+            });
         // By default, each write to rocksdb is asynchronous: it returns after pushing the write from the process into the operating system
         // Using NOSYNC here to keep same behaviour with rocksdb.
         let env = unsafe {
